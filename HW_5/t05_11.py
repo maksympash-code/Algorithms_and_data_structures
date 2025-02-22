@@ -36,7 +36,6 @@ def solve():
         else:
             r = m
 
-    # Виводимо відповідь
     print(l)
 
 if __name__ == '__main__':
