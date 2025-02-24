@@ -39,5 +39,6 @@ if __name__ == '__main__':
         array.append((x, y))
 
     sorted_array = merge_sort(array)
+
     for x, y in sorted_array:
         print(x, y)
