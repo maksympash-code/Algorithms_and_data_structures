@@ -1,3 +1,6 @@
+import sys
+sys.set_int_max_str_digits(10**6)
+
 def karatsuba(x, y):
     if x == "0" or y == "0":
         return "0"
