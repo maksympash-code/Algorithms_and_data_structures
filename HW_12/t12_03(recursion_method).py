@@ -3,14 +3,10 @@ class Node:
         self.item = item
         self.next = None
 
-
 class Stack:
     def __init__(self):
         self.top_node = None
         self._size = 0
-
-    def empty(self):
-        return self.top_node is None
 
     def push(self, item):
         new_node = Node(item)
@@ -20,15 +16,16 @@ class Stack:
         return 'ok'
 
     def pop(self):
-        if self.empty():
-            return "error"
+        if self._size == 0:
+            return 'error'
+
         current_top = self.top_node
         self.top_node = current_top.next
         self._size -= 1
         return current_top.item
 
     def back(self):
-        if self.empty():
+        if self._size == 0:
             return 'error'
         return self.top_node.item
 
@@ -41,7 +38,7 @@ class Stack:
         return 'ok'
 
     def exit(self):
-        return 'bye'
+        return "bye"
 
     def execute(self, command):
         method, *args = command.split()
@@ -56,5 +53,3 @@ if __name__ == '__main__':
             print(res)
             if res == 'bye':
                 break
-
-
