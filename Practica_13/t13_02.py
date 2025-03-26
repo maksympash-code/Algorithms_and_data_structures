@@ -13,7 +13,7 @@ def check(sequence: str) -> bool:
 
 
 if __name__ == '__main__':
-    with open("../../_a/input.txt") as f:
+    with open("input.txt") as f:
         n = int(f.readline())
         for _ in range(n):
             s = f.readline().rstrip()
