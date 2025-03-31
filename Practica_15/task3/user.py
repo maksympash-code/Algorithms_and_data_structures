@@ -108,7 +108,22 @@ def insert_before(item):
 
     :param item: елемент, що вставляється у список
     """
-    pass
+    global head, tail, current_node
+    new_node = Node(item)
+
+    if empty():
+        head = new_node
+        tail = new_node
+        current_node = new_node
+    else:
+        new_node.next = current_node
+        new_node.prev = current_node.prev
+        if current_node.prev is not None:
+            current_node.prev.next = new_node
+        else:
+            head = new_node
+        current_node.prev = new_node
+
 
 
 def delete():
@@ -118,4 +133,31 @@ def delete():
     Якщо елемент, що видаляється був у списку останнім, то поточним стає передостанній елемент цього списку.
     Гарантується, що функція не буде викликана, якщо список порожній.
     """
-    pass
+    global head, tail, current_node
+
+    if empty():
+        return
+
+    if head == tail == current_node:
+        head = None
+        tail = None
+        current_node = None
+        return
+
+    nxt = current_node.next
+    prv = current_node.prev
+
+    if prv is not None:
+        prv.next = nxt
+    else:
+        head = nxt
+
+    if nxt is not None:
+        nxt.prev = prv
+    else:
+        tail = prv
+
+    if nxt is not None:
+        current_node = nxt
+    else:
+        current_node = prv
