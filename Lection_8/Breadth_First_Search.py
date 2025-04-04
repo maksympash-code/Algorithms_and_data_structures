@@ -10,5 +10,5 @@ def BFS(tree: Tree):
         current = q.dequeue()
         print(current.key(), end=" -> ")
 
-        for child in current.getCholdren():
+        for child in current.getChildren():
             q.enqueue(child)
