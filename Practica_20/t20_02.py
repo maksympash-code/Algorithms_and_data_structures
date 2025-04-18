@@ -14,7 +14,7 @@ class SegmentTree:
         for i in range(n - 1, 0, -1):
             self.mItems[i] = self.mItems[2 * i] + self.mItems[2 * i + 1]
 
-        self.mSize = n - 1
+        self.mSize = n
 
 
     def update(self, pos, x):
