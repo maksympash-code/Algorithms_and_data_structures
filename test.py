@@ -1,33 +1,31 @@
-import numpy as np
-import matplotlib.pyplot as plt
+from flask import Flask, request, jsonify
 
-# Створення масиву значень x від 0 до 1/sqrt(2)
-x = np.linspace(0, 1/np.sqrt(2), 200)
+app = Flask(__name__)
 
-# Обчислення значень функції щільності: f(x) = 2√2 - 4x
-f = 2 * np.sqrt(2) - 4 * x
+@app.route('/longest_sequence', methods=['POST'])
+def longest_sequence():
+    data = request.get_json()
+    input_string = data.get('string', '')
 
-# Створення графіка
-plt.figure(figsize=(8, 6))
-plt.plot(x, f, lw=2, color='blue', label=r'$f(x)=2\sqrt{2}-4x$')
+    if not input_string:
+        return jsonify({'error': 'No string provided'}), 400
 
-# Позначення осей та заголовку
-plt.xlabel('x', fontsize=14)
-plt.ylabel('f(x)', fontsize=14)
-plt.title('Графік функції щільності', fontsize=16)
+    max_char = input_string[0]
+    max_length = current_length = 1
 
-# Додавання осей (x=0 та y=0) чорним кольором
-plt.axhline(0, color='black', linewidth=1)
-plt.axvline(0, color='black', linewidth=1)
+    for ch_prev, ch in zip(input_string, input_string[1:]):
+        if ch == ch_prev:
+            current_length += 1
+            if current_length > max_length:
+                max_length = current_length
+                max_char = ch
+        else:
+            current_length = 1
 
-# Налаштування розміру шрифтів для підписів осей
-plt.xticks(fontsize=12)
-plt.yticks(fontsize=12)
+    return jsonify({
+        'character': max_char,
+        'length': max_length
+    })
 
-# Додавання легенди
-plt.legend(fontsize=12)
-
-# Додавання сітки
-plt.grid(True, which='both', linestyle='--', linewidth=0.5)
-
-plt.show()
+if __name__ == '__main__':
+    app.run(debug=True)
