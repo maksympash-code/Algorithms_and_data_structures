@@ -3,7 +3,7 @@
 
 class FibNode:
     def __init__(self, key, value=None):
-        self.key = key            # пріоритет
+        self.key = key            # числове значення пріоритет
         self.value = value        # довільне навантаження
         self.degree = 0           # число дітей
         self.mark = False         # прапорець для каскадних відтинань
@@ -22,7 +22,7 @@ class FibHeap:
         """Вставка нового вузла — Θ(1) амортизовано."""
         node.degree = 0
         node.parent = node.child = None
-        node.mark = FalseІ
+        node.mark = False
         if self.min is None:
             self.min = node
         else:
@@ -188,18 +188,19 @@ class FibHeap:
 # -----------------------
 # Приклад використання:
 if __name__ == "__main__":
-    H = FibHeap()
-    # вставляємо ключі 3, 7, 1, 5
-    for k in [3,7,1,5]:
-        H.insert(FibNode(k))
-    print("Min =", H.find_min().key)  # 1
+    H1 = FibHeap()
+    H1.insert(FibNode(5))
+    H1.insert(FibNode(8))
 
-    # зменшуємо ключ 7→0
-    node7 = next(n for n in H._iterate(H.min) if n.key == 7)
-    H.decrease_key(node7, 0)
-    print("New Min =", H.find_min().key)  # 0
+    # Створюємо другу купу H2 і додаємо в неї ключі 2, 6 та 9
+    H2 = FibHeap()
+    H2.insert(FibNode(2))
+    H2.insert(FibNode(9))
+    H2.insert(FibNode(6))
 
-    # витягуємо по одному мін
-    while H.n:
-        m = H.extract_min()
-        print("Extracted", m.key)
+    # Об’єднуємо H1 та H2 в нову купу H3
+    H3 = H1.union(H2)
+
+    # Перевіряємо результат
+    print("Ключі в кореневому кільці H3:", [node.key for node in H3._iterate(H3.min)])
+    print("Мінімальне значення в H3:", H3.find_min().key)
